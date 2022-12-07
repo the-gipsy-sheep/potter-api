@@ -3,6 +3,7 @@ class CharactersController < ApplicationController
 
   def index
     @characters = Character.all
+    render json: @characters
   end
 
   def show
@@ -10,7 +11,9 @@ class CharactersController < ApplicationController
 
   def create
     @character = Character.new(character_params)
-    @character.save
+    if @character.save
+    else
+    end
   end
 
   def update
