@@ -3,10 +3,15 @@ class CharactersController < ApplicationController
 
   def index
     @characters = Character.all
-    render json: @characters
+    render json: @characters.to_json(only: %i[id name review image_url]), status: 200
   end
 
   def show
+    if @character
+      render json: @character, status: 200
+    else
+      render json: {status: 404, message: "Character not found"}, status: 404
+    end
   end
 
   def create
@@ -31,6 +36,6 @@ class CharactersController < ApplicationController
   end
 
   def set_character
-    @character = Character.find(params[:id])
+    @character = Character.find_by_id(params[:id])
   end
 end
