@@ -8,7 +8,7 @@ class CharactersController < ApplicationController
 
   def show
     if @character
-      render json: @character, status: 200
+      render json: @character.to_json(only: %i[id name review image_url]), status: 200
     else
       render json: {status: 404, message: "Character not found"}, status: 404
     end
